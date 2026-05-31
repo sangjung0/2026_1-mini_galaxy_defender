@@ -98,9 +98,18 @@ class GameState:
         self.player = self._create_player()
 
     def move_player_to(self, x: float) -> None:
+        """플레이어의 중심이 주어진 x 좌표에 오도록 이동시킵니다.
+    
+        플레이어가 화면 밖으로 나가지 않도록 좌우 경계 안에서 위치를 제한합니다.
+    
+        Args:
+            x: 플레이어 중심을 이동시킬 목표 x 좌표입니다.
+        """
         width = self.player.rect.width
         min_x = 0.0
         max_x = self.settings.screen_width - width
+    
+        # 목표 x 좌표를 플레이어의 왼쪽 좌표로 변환한 뒤, 화면 범위 안으로 제한합니다.
         clamped = max(min_x, min(max_x, x - width / 2))
         self.player.rect.x = clamped
 
